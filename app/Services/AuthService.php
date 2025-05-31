@@ -16,12 +16,12 @@ class AuthService implements AuthInterface
     {
         \Log::info('register method called');
 
-        $fields = $request->validated();
+        $payload = $request->validated();
 
         $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'name' => $payload['name'],
+            'email' => $payload['email'],
+            'password' => bcrypt($payload['password'])
         ]);
 
         $token = $user->createToken('laravelapp')->plainTextToken;
@@ -34,14 +34,14 @@ class AuthService implements AuthInterface
 
     public function login(AuthRequest $request)
     {
-        $fields = $request->validate([
+        $payload = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string'
         ]);
 
-        $user = User::where('email', $fields['email'])->first();
+        $user = User::where('email', $payload['email'])->first();
 
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
+        if (!$user || !Hash::check($payload['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);

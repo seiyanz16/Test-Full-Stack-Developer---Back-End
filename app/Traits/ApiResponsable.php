@@ -28,43 +28,43 @@ trait ApiResponsable
         return $this->respondWithSuccess(['success' => $message], 'Ok');
     }
 
-    public function respondNotFound(string|Exception $message, ?string $key = 'error'): JsonResponse
-    {
+    public function respondNotFound(
+        string|Exception $message,
+        ?string $key = 'error'
+    ): JsonResponse {
         return $this->apiResponse(
-            [$key => get_class($message)],
-            $this->morphMessage($message),
-            Response::HTTP_NOT_FOUND,
-            false
+            data: [$key => get_class($message)],
+            message: $this->morphMessage($message),
+            code: Response::HTTP_NOT_FOUND,
+            status: false
         );
     }
 
     public function respondUnAuthenticated(?string $message = null): JsonResponse
     {
         return $this->apiResponse(
-            ['error' => 'Unauthenticated'],
-            $message ?? 'Unauthenticated',
-            Response::HTTP_UNAUTHORIZED,
-            false
+            data: ['error' => 'Unauthenticated'],
+            message: $message ?? 'Unauthenticated',
+            code: Response::HTTP_UNAUTHORIZED,
+            status: false
         );
     }
 
     public function respondForbidden(?string $message = null): JsonResponse
     {
         return $this->apiResponse(
-            ['error' => $message ?? 'Forbidden'],
-            '',
-            Response::HTTP_FORBIDDEN,
-            false
+            data: ['error' => $message ?? 'Forbidden'],
+            code: Response::HTTP_FORBIDDEN,
+            status: false
         );
     }
 
     public function respondError(?string $message = null): JsonResponse
     {
         return $this->apiResponse(
-            ['error' => $message ?? 'Error'],
-            '',
-            Response::HTTP_BAD_REQUEST,
-            false
+            data: ['error' => $message ?? 'Error'],
+            code: Response::HTTP_BAD_REQUEST,
+            status: false
         );
     }
 
@@ -87,11 +87,15 @@ trait ApiResponsable
         );
     }
 
-    public function respondNoContent(array|Arrayable|JsonSerializable|null $data = null): JsonResponse
-    {
+    public function respondNoContent(
+        array|Arrayable|JsonSerializable|null $data = null
+    ): JsonResponse {
+        $data ??= [];
+        $data = $this->morphToArray(data: $data);
+
         return $this->apiResponse(
-            $this->morphToArray($data ?? []),
-            Response::HTTP_NO_CONTENT
+            data: $data,
+            code: Response::HTTP_NO_CONTENT,
         );
     }
 
