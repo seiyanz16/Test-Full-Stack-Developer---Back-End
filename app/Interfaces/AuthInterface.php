@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Http\Requests\Requests\AuthRequest;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
