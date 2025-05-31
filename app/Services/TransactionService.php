@@ -102,4 +102,17 @@ class TransactionService implements TransactionInterface
             return $transaction;
         });
     }
+
+    public function destroy(string $id)
+    {
+        $transaction = Transaction::find($id);
+
+        if (!$transaction) {
+            throw new ModelNotFoundException("Transaction not found.");
+        }
+
+        $transaction->delete();
+
+        return $transaction;
+    }
 }

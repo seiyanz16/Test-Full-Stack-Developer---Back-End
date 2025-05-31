@@ -37,4 +37,9 @@ class TransactionController extends Controller
     {
         return $this->respondWithSuccess($this->transactionService->update($request, $id), 'Transaction updated successfully');
     }
+
+    public function destroy(string $id)
+    {
+        return $this->respondNoContent($this->transactionService->destroy($id));
+    }
 }
