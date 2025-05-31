@@ -10,6 +10,14 @@ use JsonSerializable;
 
 trait ApiResponsable
 {
+    private ?array $_api_helpers_defaultSuccessData = [
+        // 'success' => true,
+    ];
+    public function setDefaultSuccessResponse(?array $content = null): self
+    {
+        $this->_api_helpers_defaultSuccessData = $content ?? [];
+        return $this;
+    }
     public function respondWithSuccess(
         array|Arrayable|JsonSerializable|null $contents = null,
         string $message = ''

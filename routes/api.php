@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,5 +14,6 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::resource('users', UserController::class)->only('index', 'store', 'edit', 'update', 'destroy');
+        Route::resource('transactions', TransactionController::class)->only('index', 'store', 'edit', 'update', 'destroy');
     }
 );
