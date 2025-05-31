@@ -2,63 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Interfaces\UserInterface;
 use App\Models\User;
+use App\Traits\ApiResponsable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return response()->json(User::latest()->get());
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    use ApiResponsable;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function __construct(private UserInterface $userService)
     {
-        //
+        $this->userService = $userService;
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function index(Request $request) : JsonResponse
+    {;
+        return $this->respondWithSuccess($this->userService->index($request), 'Success');
+    }
+    public function store(StoreUserRequest $request)
     {
-        //
+        return $this->respondCreated($this->userService->store($request));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        return $this->respondWithSuccess($this->userService->edit($id), 'Success');
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        //
+        return $this->respondWithSuccess($this->userService->update($request, $id), 'User updated successfully');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        return $this->respondNoContent($this->userService->destroy($id));
     }
 }
