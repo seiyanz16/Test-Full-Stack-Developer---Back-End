@@ -1,61 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🧪 Test Full Stack Developer – Back End (Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Repositori ini berisi API RESTful untuk aplikasi manajemen transaksi sederhana, dibangun menggunakan **PHP (Laravel)**. API ini menyediakan autentikasi berbasis token, operasi **CRUD penuh** untuk entitas **Users** dan **Transactions**, serta pencatatan otomatis ke tabel **Logs** untuk keperluan audit.
 
-## About Laravel
+API ini dirancang agar dapat terintegrasi dengan aplikasi frontend secara terpisah.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✅ Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Manajemen Pengguna (**CRUD**)
+- Manajemen Transaksi dengan **perhitungan total otomatis** (berdasarkan amount dan discount)
+- Autentikasi menggunakan **Laravel Sanctum**
+- Validasi data komprehensif untuk semua endpoint
+- Penanganan error yang konsisten
+- Logging aktivitas transaksi ke dalam tabel **logs**
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 💻 Persyaratan Sistem
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Pastikan sistem Anda memiliki prasyarat berikut:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP >= 8.2
+- Composer
+- MySQL (disarankan versi 5.7+)
+- Web Server (Apache/Nginx) atau PHP built-in server
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🧰 Instalasi
 
-### Premium Partners
+```bash
+# Clone repositori
+git clone https://github.com/seiyanz16/Test-Full-Stack-Developer---Back-End.git
+cd Test-Full-Stack-Developer---Back-End
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Install dependensi menggunakan Composer
+composer install
 
-## Contributing
+# Salin file .env contoh
+cp .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ⚙️ Konfigurasi
+🔐 Generate Application Key
+Jalankan perintah berikut untuk menghasilkan kunci aplikasi Laravel:
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🗃️ Database
+### 1. Konfigurasi `.env`
+Edit file `.env` dan sesuaikan bagian konfigurasi database seperti berikut:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+### 2. Buat Database
+Buat database secara manual di **MySQL**:
+
+```sql
+CREATE DATABASE your_database;
+```
+
+### 3. Jalankan Migrasi
+Untuk membuat tabel-tabel yang dibutuhkan oleh aplikasi:
+
+```bash
+php artisan migrate
+```
+
+### 4. Instal Sanctum (Jika Belum)
+Jika Anda menggunakan Laravel Sanctum, Anda mungkin perlu menjalankan:
+
+```bash
+php artisan sanctum:install
+```
+Dan pastikan konfigurasi terkait di config/auth.php dan config/sanctum.php sudah sesuai.
+
+---
+
+## 🚀 Menjalankan Aplikasi
+Jalankan server local development:
+
+```bash
+php artisan serve
+```
+Aplikasi API akan berjalan di:
+`http://127.0.0.1:8000`
+
+---
+
+## 📡 Struktur Endpoint API
+
+**Dokumentasi lengkap tersedia di:**  
+🔗 [Dokumentasi Postman](https://documenter.getpostman.com/view/29623755/2sB2qgeJUz)
+
+### 🔄 Ringkasan Endpoint:
+
+| Metode | URL                         | Deskripsi                                                                 |
+|--------|-----------------------------|---------------------------------------------------------------------------|
+| POST   | /api/login                  | Autentikasi dan mendapatkan token                                         |
+| POST   | /api/register               | Mendaftarkan pengguna baru                                                |
+| GET    | /api/users                  | Mendapatkan daftar pengguna                                               |
+| POST   | /api/users                  | Membuat pengguna baru                                                     |
+| GET    | /api/users/{id}             | Mendapatkan detail pengguna berdasarkan ID                                |
+| PUT    | /api/users/{id}             | Memperbarui data pengguna berdasarkan ID                                  |
+| DELETE | /api/users/{id}             | Menghapus pengguna berdasarkan ID                                         |
+| GET    | /api/transactions           | Mendapatkan daftar transaksi                                              |
+| POST   | /api/transactions           | Membuat transaksi baru (otomatis hitung total dari amount dan discount)  |
+| PUT    | /api/transactions/{id}      | Memperbarui transaksi berdasarkan ID                                      |
+| DELETE | /api/transactions/{id}      | Menghapus transaksi berdasarkan ID                                        |
