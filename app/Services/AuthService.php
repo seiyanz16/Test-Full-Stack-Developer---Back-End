@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\ModelNotFoundException;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,9 +43,7 @@ class AuthService implements AuthInterface
         $user = User::where('email', $payload['email'])->first();
 
         if (!$user || !Hash::check($payload['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            throw new ModelNotFoundException("Invalid credentials.");
         };
 
         $token = $user->createToken('laravelapp')->plainTextToken;
