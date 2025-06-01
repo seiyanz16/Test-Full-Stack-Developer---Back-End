@@ -28,6 +28,12 @@ class AuthController extends Controller
         return $this->respondWithSuccess($data, 'Successfully logged in');
     }
 
+    public function me(Request $request)
+    {
+        $data = $this->authService->me($request);
+        return $this->respondWithSuccess($data, 'Successfully logged in');
+    }
+
     public function logout(Request $request)
     {
         $data = $this->authService->logout($request);

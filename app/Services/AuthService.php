@@ -55,6 +55,11 @@ class AuthService implements AuthInterface
         ];
     }
 
+    public function me(Request $request)
+    {
+        return $request->user();
+    }
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
